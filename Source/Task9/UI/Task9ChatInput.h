@@ -23,9 +23,8 @@ protected:
 	void OnChatInputTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
 	
 public:
-	UPROPERTY(meta=(BindWidget))
+	UPROPERTY(meta=(BindWidgetoptional))
 	TObjectPtr<UEditableTextBox> ChatInput;
-
 	UPROPERTY(meta=(BindWidgetOptional))
 	TObjectPtr<UScrollBox> ChatMessageScrollBox;
 };

@@ -11,10 +11,16 @@ class TASK9_API ATask9PlayerState : public APlayerState
 	
 public:
 	ATask9PlayerState();
-	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
+public:
+	FString GetPlayerInfoString();
 	
 public:
 	UPROPERTY(Replicated)
 	FString PlayerNameString;
+	UPROPERTY(Replicated)
+	int32 CurrentGuessCount;
+	UPROPERTY(Replicated)
+	int32 MaxGuessCount;
 };

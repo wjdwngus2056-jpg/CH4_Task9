@@ -1,11 +1,10 @@
 #include "Task9PlayerController.h"
 
-#include "EngineUtils.h"
 #include "Task9.h"
 #include "Task9PlayerState.h"
 #include "Game/Task9GameModeBase.h"
 #include "Kismet/GameplayStatics.h"
-#include "UI/Task9ChatInput.h"
+#include "UI/Task9HUD.h"
 
 void ATask9PlayerController::BeginPlay()
 {
@@ -19,12 +18,12 @@ void ATask9PlayerController::BeginPlay()
 	FInputModeUIOnly FInputModeUIOnly;
 	SetInputMode(FInputModeUIOnly);
 	
-	if (IsValid(ChatInputWidgetClass))
+	if (IsValid(HUDWidgetClass))
 	{
-		ChatInputWidgetInstance = CreateWidget<UTask9ChatInput>(this, ChatInputWidgetClass);
-		if (IsValid(ChatInputWidgetInstance))
+		HUDWidgetInstance = CreateWidget<UTask9HUD>(this, HUDWidgetClass);
+		if (IsValid(HUDWidgetInstance))
 		{
-			ChatInputWidgetInstance->AddToViewport();
+			HUDWidgetInstance->AddToViewport();
 		}
 	}
 }
@@ -38,7 +37,7 @@ void ATask9PlayerController::SetChatMessageString(const FString& InChatMessageSt
 		ATask9PlayerState* Taks9PS = GetPlayerState<ATask9PlayerState>();
 		if (IsValid(Taks9PS) == true)
 		{
-			FString CombinedMessageString = Taks9PS->PlayerNameString + TEXT(" : ") + InChatMessageString;
+			FString CombinedMessageString = Taks9PS->GetPlayerInfoString() + TEXT(" : ") + InChatMessageString;
 
 			ServerRPCPrintChatMessageString(CombinedMessageString);
 		}
@@ -47,9 +46,9 @@ void ATask9PlayerController::SetChatMessageString(const FString& InChatMessageSt
 
 void ATask9PlayerController::PrintChatMessageString(const FString& InChatMessageString)
 {
-	if (IsValid(ChatInputWidgetInstance))
+	if (IsValid(HUDWidgetInstance))
 	{
-		ChatInputWidgetInstance->ShowChatMessage(InChatMessageString);
+		HUDWidgetInstance->ShowChatMessage(InChatMessageString);
 		return;
 	}
 

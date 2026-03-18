@@ -4,7 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Task9PlayerController.generated.h"
 
-class UTask9ChatInput;
+class UTask9HUD;
 
 UCLASS()
 class TASK9_API ATask9PlayerController : public APlayerController
@@ -24,9 +24,10 @@ public:
 	
 protected:
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UTask9ChatInput> ChatInputWidgetClass;
+	TSubclassOf<UTask9HUD> HUDWidgetClass;
+
 	UPROPERTY()
-	TObjectPtr<UTask9ChatInput> ChatInputWidgetInstance;
+	TObjectPtr<UTask9HUD> HUDWidgetInstance;
 	
 	FString ChatMessageString;
 };
