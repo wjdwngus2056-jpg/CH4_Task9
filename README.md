@@ -1,5 +1,7 @@
 # CH4_Task9
 
+https://youtu.be/OYtdvWxeVWg?si=o1WfqU0wcek2wKyA
+
 Unreal Engine 기반의 간단한 턴제 숫자야구 프로젝트입니다.
 
 ## 개요
