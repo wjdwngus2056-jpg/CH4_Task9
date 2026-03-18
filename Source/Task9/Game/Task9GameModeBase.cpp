@@ -180,7 +180,7 @@ void ATask9GameModeBase::PrintChatMessageString(ATask9PlayerController* InChatti
 	}
 	else
 	{
-		InChattingPlayerController->ClientRPCPrintChatMessageString(TEXT("3개의 서로 다른 숫자를 입력하세요."));
+		InChattingPlayerController->ClientRPCPrintChatMessageString(TEXT("세 자리 숫자를 입력하세요."));
 	}
 }
 
