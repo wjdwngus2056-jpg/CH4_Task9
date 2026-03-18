@@ -2,6 +2,7 @@
 
 #include "EngineUtils.h"
 #include "Task9.h"
+#include "Task9PlayerState.h"
 #include "Game/Task9GameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/Task9ChatInput.h"
@@ -34,7 +35,13 @@ void ATask9PlayerController::SetChatMessageString(const FString& InChatMessageSt
 	
 	if (IsLocalController())
 	{
-		ServerRPCPrintChatMessageString(InChatMessageString);
+		ATask9PlayerState* Taks9PS = GetPlayerState<ATask9PlayerState>();
+		if (IsValid(Taks9PS) == true)
+		{
+			FString CombinedMessageString = Taks9PS->PlayerNameString + TEXT(" : ") + InChatMessageString;
+
+			ServerRPCPrintChatMessageString(CombinedMessageString);
+		}
 	}
 }
 

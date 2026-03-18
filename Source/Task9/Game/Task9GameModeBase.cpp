@@ -3,6 +3,7 @@
 #include "EngineUtils.h"
 #include "Task9GameStateBase.h"
 #include "Player/Task9PlayerController.h"
+#include "Player/Task9PlayerState.h"
 
 void ATask9GameModeBase::BeginPlay()
 {
@@ -15,17 +16,23 @@ void ATask9GameModeBase::BeginPlay()
 void ATask9GameModeBase::OnPostLogin(AController* NewPlayer)
 {
 	Super::OnPostLogin(NewPlayer);
-
-	ATask9GameStateBase* Task9GameStateBase = GetGameState<ATask9GameStateBase>();
-	if (IsValid(Task9GameStateBase))
-	{
-		Task9GameStateBase->MulticastRPCBroadcastLoginMessage(TEXT("Player"));
-	}
-
+	
 	ATask9PlayerController* Task9PlayerController = Cast<ATask9PlayerController>(NewPlayer);
 	if (IsValid(Task9PlayerController))
 	{
 		AllPlayerControllers.Add(Task9PlayerController);
+
+		ATask9PlayerState* CXPS = Task9PlayerController->GetPlayerState<ATask9PlayerState>();
+		if (IsValid(CXPS) == true)
+		{
+			CXPS->PlayerNameString = TEXT("Player") + FString::FromInt(AllPlayerControllers.Num());
+		}
+
+		ATask9GameStateBase* Task9GameStateBase =  GetGameState<ATask9GameStateBase>();
+		if (IsValid(Task9GameStateBase) == true)
+		{
+			Task9GameStateBase->MulticastRPCBroadcastLoginMessage(CXPS->PlayerNameString);
+		}
 	}
 }
 
